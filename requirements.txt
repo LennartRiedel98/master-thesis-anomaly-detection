@@ -1,0 +1,70 @@
+# Direkte Abhaengigkeiten der Pipeline (Stage 1 - 10 + Datenexploration).
+#
+# Versionen sind exakt gepinnt (==), damit zwei Setups auf
+# unterschiedlichen Maschinen bit-identisch dieselben Pipeline-Ausgaben
+# erzeugen. Fuer die volle Liste inklusive transitiver Abhaengigkeiten
+# (numpy, scipy, six, ...) siehe requirements-lock.txt.
+#
+# Setup auf einer neuen Maschine:
+#     python3.12 -m venv .venv
+#     source .venv/bin/activate     # Linux/Mac
+#     .\.venv\Scripts\activate      # Windows
+#     pip install -r requirements-lock.txt
+#
+# requirements.txt (diese Datei) ist dafuer da, neue Pakete hinzuzufuegen.
+# Nach jeder Aenderung neu locken:
+#     pip install -r requirements.txt
+#     pip freeze > requirements-lock.txt
+#
+# Validiert mit Python 3.12.13 unter macOS (arm64), torch 2.12.0 (Stand 2026-06).
+
+pandas==3.0.3
+pyarrow==24.0.0
+matplotlib==3.10.9
+statsmodels==0.14.6
+holidays==0.97
+
+# Stage 7 - Modelle (klassische Detektoren, plattform-unabhaengig gepinnt).
+#   scikit-learn : LOF + IsolationForest
+#   ruptures     : PELT (Change-Point auf dem MSTL-Trend)
+scikit-learn==1.8.0
+ruptures==1.1.10
+
+# ---------------------------------------------------------------------------
+# PyTorch (LSTM-Autoencoder) - BEWUSST NICHT in den strikt gepinnten Block.
+#
+# torch ist die einzige maschinen-spezifische und nicht voll deterministische
+# Abhaengigkeit:
+#   - Der Build haengt vom Beschleuniger ab (CPU vs. CUDA-Version).
+#   - CUDA-Kernel sind nicht bit-identisch reproduzierbar; das LSTM-AE ist
+#     damit der einzige Stage-7-Detektor ohne exakte Reproduzierbarkeit
+#     (random_state seedet CPU exakt, CUDA bis auf nichtdeterministische
+#     Kernel). Alle anderen Stages/Modelle bleiben deterministisch.
+#
+# Installation pro Maschine SEPARAT, nicht ueber requirements-lock.txt:
+#
+#   Training-PC mit Nvidia GPU mit CUDA (Windows/Linux):
+#       # CUDA 12.x Wheel (numpy-2-kompatibel, >=2.3 erforderlich):
+#       pip install torch --index-url https://download.pytorch.org/whl/cu124
+#       # Verifizieren:  python -c "import torch; print(torch.cuda.is_available())"  -> True
+#       # Das LSTM-AE waehlt das Geraet automatisch (device="auto").
+#
+#   CPU-only (z. B. Linux/Windows ohne GPU):
+#       pip install torch --index-url https://download.pytorch.org/whl/cpu
+#
+#   Apple Silicon (M-Serie) mit nativem arm64-Python:
+#       pip install torch          # arm64-Wheel, numpy-2-kompatibel
+#       # ACHTUNG: NICHT device="mps" fuer das LSTM-AE verwenden! Der
+#       # nn.LSTM-Kernel ist auf Apple-MPS defekt (Speicher-Explosion > 60 GB,
+#       # OOM). Auf dem Mac das LSTM-AE daher mit --device cpu fahren
+#       # (speichersicher, aber langsam). Das "echte" GPU-Training laeuft auf
+#       # einem CUDA-PC. Die klassischen Detektoren laufen
+#       # voll auf der Mac-CPU. Details: docs/methodology.md Sektion 8.
+#
+# ACHTUNG Rosetta-Falle: Laeuft das venv-Python unter Rosetta als x86_64
+# (pruefen mit  python -c "import platform; print(platform.machine())" ->
+# "x86_64" auf einem arm64-Mac), zieht pip das letzte x86-macOS-Wheel
+# torch==2.2.2. Das ist mit numpy>=2 inkompatibel ("Numpy is not available")
+# und das LSTM-AE laeuft NICHT. Loesung: venv mit nativem arm64-Python
+# neu anlegen. Die klassischen Detektoren (zscore/lof/iforest/pelt)
+# importieren torch nicht (lazy import) und funktionieren auch unter Rosetta.

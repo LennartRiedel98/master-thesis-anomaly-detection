@@ -1,0 +1,31 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Eingabedaten. Zwei Gruende, dieselbe Regel:
+#   - Die Originaldaten sind vertraulich und duerfen ohnehin nicht ins Repo
+#     (README, Abschnitt "Daten").
+#   - Der Demo-Datensatz ist mit ~140 MB zu gross fuer ein Repository und in
+#     15 Sekunden reproduzierbar: python -m src.tools.make_synthetic_data
+# Im Repo steht der Generator, nicht sein Ergebnis.
+data/*/
+
+# Pipeline-Outputs (werden aus data/ neu erzeugt; was dort liegt und in
+# welchem Format, steht in README.md, Abschnitt "Was im outputs/-Ordner liegt")
+outputs/
+
+# Erzeugte Abbildungen. pipeline_diagram.py, plot_ki_schachtelung.py und
+# plot_injektionskarte.py --docs-copy schreiben hierher; die Bilder stehen
+# in der Arbeit und sind jederzeit reproduzierbar. Im Repo steht der Code,
+# nicht sein Ergebnis.
+docs/*.png
+
+# Betriebssystem-Artefakte
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

@@ -1,0 +1,28 @@
+# Deterministischer Lock fuer die gesamte Pipeline (Stage 1-10 + Exploration, ohne torch).
+# torch wird pro Maschine separat installiert - siehe requirements.txt.
+#
+# Verifiziert gegen das installierte .venv am 2026-06-14 (Python 3.12.13, arm64):
+# alle Pins unten = exakt installierte Versionen. Nach Aenderung an
+# requirements.txt neu locken, torch + dessen Deps (jinja2/sympy/networkx/
+# filelock/fsspec/mpmath/markupsafe/typing_extensions) dabei ausschliessen.
+contourpy==1.3.3
+cycler==0.12.1
+fonttools==4.63.0
+holidays==0.97
+joblib==1.5.3
+kiwisolver==1.5.0
+matplotlib==3.10.9
+numpy==2.4.6
+packaging==26.2
+pandas==3.0.3
+patsy==1.0.2
+pillow==12.2.0
+pyarrow==24.0.0
+pyparsing==3.3.2
+python-dateutil==2.9.0.post0
+ruptures==1.1.10
+scikit-learn==1.8.0
+scipy==1.17.1
+six==1.17.0
+statsmodels==0.14.6
+threadpoolctl==3.6.0
