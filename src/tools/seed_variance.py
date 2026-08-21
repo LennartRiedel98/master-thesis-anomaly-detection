@@ -49,7 +49,7 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 # Spalten, die eine HP-Konfiguration *eindeutig* bestimmen. Stage 8
 # schreibt die HP-Namen ohne Praefix in ``hpo_log.csv`` (siehe Header

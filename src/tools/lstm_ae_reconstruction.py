@@ -58,7 +58,7 @@ from models.lstm_ae import LSTMAutoencoderDetector, _torch  # noqa: E402
 from models.registry import WMZ_NAMES, model_features       # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 # Feste Farbzuordnung (nicht am Serienrang, an der Rolle): Original neutral
 # grau, AE-Rekonstruktion blau, MSTL-Fit orange. Blau/Orange ist auch unter

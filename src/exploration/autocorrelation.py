@@ -33,7 +33,7 @@ import pandas as pd
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 WMZ_COLS = ["wmz_1_kw_mean", "wmz_2_kw_mean", "wmz_3_kw_mean"]
 MAX_LAGS = 168          # eine Woche in Stunden

@@ -30,7 +30,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]   # src/tools/ -> Projekt-Wurzel
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 KW_COLS = ["wmz_1_kw_mean", "wmz_2_kw_mean", "wmz_3_kw_mean"]
 FLAG_COLS = ["wmz_1_was_flagged", "wmz_2_was_flagged", "wmz_3_was_flagged"]

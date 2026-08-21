@@ -49,7 +49,7 @@ from result_io import write_best_hparams, write_rows_csv
 from stage7_train import select_training_rows
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 # Eigener Seed fuer die Validierungs-Injektion (!= Test-Seed in Stage 9).
 VAL_SEED = 8

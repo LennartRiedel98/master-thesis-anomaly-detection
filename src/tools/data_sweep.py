@@ -71,7 +71,7 @@ from models.registry import REGISTRY, WMZ_NAMES, model_features
 from stage7_train import select_training_rows
 
 ROOT = Path(__file__).resolve().parents[2]   # src/tools/ -> Projekt-Wurzel
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 # Name -> Klasse aus der REGISTRY abgeleitet (zentrale Wahrheit). Eine
 # Klasse kann in mehreren Varianten registriert sein - hier reicht die

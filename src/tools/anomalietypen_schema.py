@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 C_STAT = "#c6dbef"      # helles Blau  (stationär -> Schienen A/B)
 C_NONSTAT = "#fdd0a2"   # helles Orange (nicht-stationär -> Schiene C)

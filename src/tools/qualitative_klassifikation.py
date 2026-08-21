@@ -29,7 +29,7 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 # Jobs, die in Kap. 4.6 explizit berichtet werden
 HIGHLIGHT = [

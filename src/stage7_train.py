@@ -38,7 +38,7 @@ import pandas as pd
 from models.registry import REGISTRY, WMZ_NAMES, iter_training_jobs, model_features
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 
 def parse_args() -> argparse.Namespace:

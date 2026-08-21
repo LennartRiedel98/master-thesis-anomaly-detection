@@ -47,7 +47,7 @@ from result_io import write_rows_csv
 from stage7_train import select_training_rows
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 REGULATORY_TS = pd.Timestamp("2022-09-01")
 REGULATORY_TOL_DAYS = 30

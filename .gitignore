@@ -4,13 +4,16 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 
-# Eingabedaten. Zwei Gruende, dieselbe Regel:
-#   - Die Originaldaten sind vertraulich und duerfen ohnehin nicht ins Repo
-#     (README, Abschnitt "Daten").
-#   - Der Demo-Datensatz ist mit ~140 MB zu gross fuer ein Repository und in
-#     15 Sekunden reproduzierbar: python -m src.tools.make_synthetic_data
-# Im Repo steht der Generator, nicht sein Ergebnis.
+# Eingabedaten. Grundregel: kein Datensatz im Repo - der Demo-Datensatz ist
+# mit ~140 MB zu gross und in 15 Sekunden reproduzierbar
+# (python src/tools/make_synthetic_data.py); im Repo steht der Generator,
+# nicht sein Ergebnis.
 data/*/
+# Ausnahme: die anonymisierte Fassung der Originaldaten. Sie ist die einzige
+# Eingabe, aus der die Zahlen der Arbeit entstehen, und laesst sich - anders
+# als der Demo-Datensatz - nicht nachbauen. Erzeugt aus dem Originaldatensatz
+# mit src/tools/anonymize_dataset.py.
+!data/gebaeude_a/
 
 # Pipeline-Outputs (werden aus data/ neu erzeugt; was dort liegt und in
 # welchem Format, steht in README.md, Abschnitt "Was im outputs/-Ordner liegt")

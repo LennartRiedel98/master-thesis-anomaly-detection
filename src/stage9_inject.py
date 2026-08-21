@@ -33,7 +33,7 @@ from injection_apply import build_injected
 from models.registry import WMZ_NAMES
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 # Test-Seed - bewusst verschieden vom Validierungs-Seed in Stage 8.
 TEST_SEED = 99

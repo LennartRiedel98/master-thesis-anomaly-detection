@@ -59,7 +59,7 @@ from plot_qualitative_case import (  # noqa: E402
 )
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 # Reihenfolge der Anomalietypen (stationaer zuerst), wie in der Injektionskarte.
 TYPE_ORDER = ["spike", "drop", "plateau", "leakage", "drift", "structural_break"]

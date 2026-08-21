@@ -53,7 +53,7 @@ from models.lstm_ae import LSTMAutoencoderDetector         # noqa: E402
 from models.registry import WMZ_NAMES, model_features      # noqa: E402
 from stage7_train import select_training_rows              # noqa: E402
 
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 VARIANTS = ["raw", "residual", "trend"]
 MODES = ["window_mse", "channel_mse", "last_step_mse", "mahalanobis"]
 

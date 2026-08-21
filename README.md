@@ -7,11 +7,11 @@ untersucht an den **Wärmemengenzählern (WMZ)** eines Gewerbegebäudes
 die Anleitung, um **alle Ergebnisse und Abbildungen der Arbeit zu
 reproduzieren**.
 
-> **Diese Fassung enthält keine echten Messdaten.** Die Arbeit wurde auf
-> vertraulichen Betriebsdaten gerechnet; die liegen hier nicht bei. Stattdessen
-> erzeugt ein Generator einen **synthetischen Datensatz im identischen
-> Dateiformat**, mit dem die gesamte Pipeline durchläuft — ein Befehl, siehe
-> [Daten](#daten) und [Schritt 0](#schritt-0--demo-datensatz-erzeugen).
+> **Die Messdaten liegen bei — in anonymisierter Fassung.** Unter
+> `data/gebaeude_a/` stehen die realen Messreihen; ersetzt sind allein die
+> identifizierenden Angaben, also Gebäude, Betreiber, Standort und
+> Zählernummern. Die Messwerte selbst sind unverändert, alle Zahlen der Arbeit
+> lassen sich damit nachrechnen — siehe [Daten](#daten).
 
 > **Worum geht es?** Heizenergie-Zeitreihen aus Gebäudezählern tragen
 > ausgeprägte Muster — Tages- und Wochenrhythmus, Heizsaison, Abhängigkeit
@@ -100,22 +100,27 @@ Die Pipeline hat **genau eine Eingabe**: einen Ordner `data/<dataset>/` mit den
 Logging-CSVs der Wärmemengenzähler und einer Open-Meteo-CSV. Alles Weitere wird
 daraus erzeugt.
 
-> ### ⚠️ Die Originaldaten sind nicht Teil dieser Veröffentlichung
+> ### ⚠️ Zur Herkunft der Daten und zum erlaubten Umgang damit
 >
-> Ausgewertet wurden **reale Betriebsdaten** eines Gewerbegebäudes. Weil sie
-> dem Betriebs- und Geschäftsinteresse des Wärmeversorgers unterliegen, werden
-> sie **nicht offen veröffentlicht**; die Gutachterin erhält sie **unter
-> Vertraulichkeitsvereinbarung (NDA)** separat. Gebäude, Betreiber, Standort
-> und Zählernummern sind in dieser Fassung durchgängig anonymisiert; der
-> Originaldatensatz heißt in der Dokumentation `gebaeude_a`.
+> Ausgewertet wurden **reale Betriebsdaten** eines Gewerbegebäudes. Sie
+> unterliegen dem Betriebs- und Geschäftsinteresse des Wärmeversorgers und
+> liegen hier deshalb **ausschließlich anonymisiert** bei: Gebäude, Betreiber,
+> Standort und Zählernummern sind ersetzt, der Datensatz heißt durchgängig
+> `gebaeude_a`. Die Ersetzung ist als ausführbarer Schritt in
+> [`src/tools/anonymize_dataset.py`](src/tools/anonymize_dataset.py)
+> festgehalten; sie betrifft **nur Metadaten** und lässt Messwerte,
+> Zeitstempel und Spaltenreihenfolge unangetastet — sonst wäre keine Zahl der
+> Arbeit mehr nachrechenbar.
 >
 > Das ist die von FitForFDM verlangte Trennung von Code und Daten: Der Code
-> steht unter der [MIT-Lizenz](LICENSE), die Daten unterliegen einer
-> **Zugriffsbeschränkung** statt einer offenen Datenlizenz.
+> steht unter der [MIT-Lizenz](LICENSE), **die Daten nicht**. Sie sind allein
+> zur Nachvollziehbarkeit dieser Arbeit beigelegt; Weiterverbreitung,
+> kommerzielle Nutzung und jeder Versuch, Gebäude oder Betreiber zu
+> reidentifizieren, sind nicht gestattet.
 
-### Der mitgelieferte Demo-Datensatz
+### Der zusätzliche Demo-Datensatz
 
-Damit das Repository trotzdem vollständig lauffähig bleibt, erzeugt
+Wer die Pipeline ohne die realen Werte ausprobieren will, erzeugt
 [`src/tools/make_synthetic_data.py`](src/tools/make_synthetic_data.py) einen
 **synthetischen Ersatzdatensatz** `demo_synthetic` — ein Befehl, rund 15
 Sekunden, etwa 140 MB:
@@ -258,17 +263,21 @@ die klassischen Detektoren in Stage 7/8/10 ebenso. Nur der LSTM-Autoencoder
 profitiert von einer GPU — und ist dort **nicht** bit-identisch wiederholbar,
 weil die CUDA-Kernel nicht deterministisch sind (siehe Schritt B).
 
-### Schritt 0 — Demo-Datensatz erzeugen
+### Schritt 0 — Datensatz wählen
 
-Die Originaldaten liegen dem Repository nicht bei (siehe [Daten](#daten)). Vor
-dem ersten Lauf deshalb einmalig den synthetischen Ersatzdatensatz erzeugen:
+Nichts zu tun: `gebaeude_a` liegt unter `data/` bereit und ist der
+Default-Datensatz aller Stages. Nur damit entstehen die Zahlen und
+Abbildungen der Arbeit.
+
+Wer die Pipeline lieber auf erfundenen Werten laufen lässt, erzeugt sich in
+15 Sekunden einen synthetischen Ersatzdatensatz im identischen Dateiformat:
 
 ```bash
-python src/tools/make_synthetic_data.py     # ~15 s, schreibt data/demo_synthetic/
+python src/tools/make_synthetic_data.py     # schreibt data/demo_synthetic/
 ```
 
-Danach ist `demo_synthetic` der Default-Datensatz aller Stages; ein eigener
-Datensatz kommt über `--dataset <name>` dazu (siehe
+Er läuft dann über `--dataset demo_synthetic`; ein eigener Datensatz kommt
+genauso dazu (siehe
 [Eigenen Datensatz hinzufügen](#eigenen-datensatz-hinzufügen)).
 
 ### Schritt A — Pipeline ohne LSTM (vollständig auf CPU, ~Minuten)
@@ -456,7 +465,7 @@ aus den Rohdaten und den Pipeline-Outputs — es liegen bewusst keine fertigen
 Bilddateien im Repo. Reproweg: **erst die Pipeline durchlaufen** (Abschnitt oben,
 mindestens Schritt A; für `score_verteilungen` und die LSTM-Fallplots auch
 Schritt B), **dann die Plot-Skripte ausführen.** Alle Abbildungen landen in
-`outputs/demo_synthetic/figures/` (Ausnahme: das Pipeline-Diagramm → `docs/`).
+`outputs/gebaeude_a/figures/` (Ausnahme: das Pipeline-Diagramm → `docs/`).
 
 ```bash
 # Explorative Analyse
@@ -534,7 +543,7 @@ python src/tools/plot_qualitative_case.py --variant raw --wmz wmz_3 --model ifor
 
 ## Nützliche Optionen (alle Stages)
 
-- `--dataset <name>` — anderer Datensatz (Default `demo_synthetic`).
+- `--dataset <name>` — anderer Datensatz (Default `gebaeude_a`).
 - `--models <a b c>` (Stage 7/8/10) — Detektor-Teilmenge.
 - `--device cpu|cuda|mps|auto` (LSTM, Stage 7/8/10) — Rechen-Backend.
 - `--max-train-rows N` (Stage 7/8/10) — kleinerer Trainings-Tail für schnelle
@@ -549,7 +558,7 @@ python src/tools/plot_qualitative_case.py --variant raw --wmz wmz_3 --model ifor
    `logging_heat-energy_*.csv` ablegen, die Wetterdatei als `open-meteo-*.csv`.
    Stage 1 findet sie über diese Namensmuster; die Zählernummern in den
    Spaltenköpfen sind beliebig, ihre **Reihenfolge** legt `wmz_1`, `wmz_2`, …
-   fest. Als Formatvorlage dient `data/demo_synthetic/` aus Schritt 0.
+   fest. Als Formatvorlage dient `data/gebaeude_a/`.
 3. Pipeline mit `--dataset <name>` aufrufen. Outputs landen unter
    `outputs/<name>/`; bestehende Datensätze bleiben unberührt.
 
@@ -567,9 +576,10 @@ src/
     make_synthetic_data.py  Generator des Demo-Datensatzes (Schritt 0)
   exploration/          Methoden-zentrierte Explorations-/Abbildungs-Skripte
 docs/                   Methodik-, Ergebnis- und Auswertungsdokumentation
-data/<dataset>/         Eingabedaten (WMZ-CSVs + Open-Meteo) — gitignored.
-                        `demo_synthetic` erzeugt Schritt 0; die Originaldaten
-                        sind nicht Teil der Veröffentlichung (s. "Daten")
+data/gebaeude_a/        Eingabedaten (WMZ-CSVs + Open-Meteo): die anonymisierte
+                        Fassung der Originaldaten, Default aller Stages
+data/<dataset>/         weitere Datensaetze — gitignored; `demo_synthetic`
+                        erzeugt src/tools/make_synthetic_data.py
 outputs/<dataset>/      Generierte Artefakte (parquet/csv/reports/figures/
                         scalers/models/hpo) — gitignored, vollständig reproduzierbar
 ```
@@ -605,10 +615,10 @@ von der bei der Hochschule eingereichten in sechs Punkten:
 
 | | |
 |---|---|
-| **Keine Originaldaten** | Statt der vertraulichen Messreihen liegt ein Generator für einen synthetischen Ersatzdatensatz bei (siehe [Daten](#daten)) |
-| **Anonymisiert** | Gebäude, Betreiber, Standort und Zählernummern sind ersetzt; die Dokumentation nennt den Originaldatensatz `gebaeude_a` |
+| **Daten anonymisiert statt weggelassen** | Die Messreihen liegen als `data/gebaeude_a/` bei, die eingereichte Fassung trägt sie unter ihren Originalbezeichnungen (siehe [Daten](#daten)) |
+| **Anonymisiert** | Gebäude, Betreiber, Standort und Zählernummern sind ersetzt — in den Daten wie in der Dokumentation, die den Datensatz durchgängig `gebaeude_a` nennt |
 | **Eine funktionale Änderung** | `stage1_load.py` findet die Eingabedateien über die Namensmuster `logging_heat-energy_*.csv` und `open-meteo-*.csv` statt über eine fest verdrahtete Dateiliste, und leitet `wmz_1/2/3` aus der Spaltenreihenfolge ab statt aus konkreten Zählernummern. Für den Originaldatensatz ist das Ergebnis identisch |
-| **Keine Ergebnisartefakte** | `outputs/` ist leer — die Zahlen und Abbildungen der Arbeit stammen aus den Originaldaten und lassen sich ohne diese nicht erzeugen |
+| **Keine Ergebnisartefakte** | `outputs/` ist leer — die Zahlen und Abbildungen der Arbeit entstehen beim Durchlauf der Pipeline neu |
 | **Bibliografie gekürzt** | Aus [`docs/literatur.bib`](docs/literatur.bib) sind vier Webquellen entfernt, die den Standort identifizieren, sowie die internen Arbeitskommentare |
 | **Interne Dokumente fehlen** | Arbeitsprotokoll, Kolloquiumsvorbereitung, Quellenprüfung und die Arbeit selbst sind nicht enthalten; Querverweise darauf in `docs/` laufen deshalb ins Leere |
 

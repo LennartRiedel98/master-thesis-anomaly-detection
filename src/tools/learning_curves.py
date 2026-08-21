@@ -30,7 +30,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 # Farben je Modell - bewusst dieselbe Palette wie in den Stage-10-Plots,
 # damit Cross-Plot-Vergleich nicht durch Farbwechsel verwirrt wird.

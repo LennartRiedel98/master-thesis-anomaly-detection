@@ -46,7 +46,7 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 WMZ = ["wmz_1", "wmz_2", "wmz_3"]
 

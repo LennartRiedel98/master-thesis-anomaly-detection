@@ -40,7 +40,7 @@ from statsmodels.nonparametric.smoothers_lowess import lowess
 
 # Projekt-Wurzel: src/exploration/temperature_scatter.py -> parents[2].
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 # WMZ-Reihen und ihre menschenlesbaren Titel fuer die Subplots.
 WMZ_COLS = ["wmz_1_kw_mean", "wmz_2_kw_mean", "wmz_3_kw_mean"]

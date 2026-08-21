@@ -64,7 +64,7 @@ from models.registry import REGISTRY, WMZ_NAMES, model_features  # noqa: E402
 from stage7_train import select_training_rows  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]   # src/tools/ -> Projekt-Wurzel
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 # Konsistente Farben je Anomalietyp (identisch zu plot_injektionskarte.py).
 TYPE_COLOR = {

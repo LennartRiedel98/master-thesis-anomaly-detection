@@ -29,7 +29,7 @@ import pandas as pd
 # ---------------------------------------------------------------------------
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 # Die Eingabedateien werden ueber ein Namensmuster gefunden, nicht ueber eine
 # feste Liste: So laesst sich ein weiterer Datensatz allein durch Ablegen der

@@ -29,7 +29,7 @@ import pandas as pd
 
 # Projekt-Wurzel: src/stage5_split.py -> parents[1] = anomaly-detection-master-thesis-main/
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 # Drei Zeitstempel definieren die Splitgrenzen.
 # Konvention: linksgeschlossen, rechtsoffen ([a, b)) - identisch zur

@@ -29,7 +29,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 WMZ_NAMES = ["wmz_1", "wmz_2", "wmz_3"]
 
 # Reihenfolge der Lanes (stationaer zuerst, dann nicht-stationaer) + Farben.

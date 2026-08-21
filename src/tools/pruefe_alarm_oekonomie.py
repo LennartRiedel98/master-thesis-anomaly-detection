@@ -29,7 +29,7 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 # Was Abschnitt 4.5 behauptet: (Variante, Zaehler, Modell) -> Sollwerte.
 # Quelle: Abschnitt 4.5 der Arbeit, Absatz "Betrieblich ebenso relevant

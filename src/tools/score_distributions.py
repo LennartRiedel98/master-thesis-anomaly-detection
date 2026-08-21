@@ -54,7 +54,7 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DATASET = "demo_synthetic"
+DEFAULT_DATASET = "gebaeude_a"
 
 # src/ in den PYTHONPATH legen, damit ``from models...`` aus diesem
 # tools/-Skript funktioniert wie in den Stages selber.
